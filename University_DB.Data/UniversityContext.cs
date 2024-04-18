@@ -33,6 +33,12 @@ namespace University_DB.Data
                 .HasMany(sp => sp.Subjects)
                 .WithMany(s => s.Specializations)
                 .UsingEntity(j => j.ToTable("SpecailizationSubject"));
+
+                // Journal
+            modelBuilder.Entity<Journal>()
+                .HasOne(s => s.Student)
+                .WithOne(j => j.Journal)
+                .HasForeignKey<Student>(s => s.JournalId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
