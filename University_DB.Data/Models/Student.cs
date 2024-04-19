@@ -9,6 +9,8 @@ namespace University_DB.Data.Models
 {
     public class Student : User
     {
+        public int JournalId { get; set; }
+        public int SpecializationlId { get; set; }
         public Journal Journal { get; set; }
         public Specialization? Specialization { get; set; }
 

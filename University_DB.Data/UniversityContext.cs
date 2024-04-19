@@ -12,7 +12,12 @@ namespace University_DB.Data
 
     public class UniversityContext : DbContext
     {
+        public DbSet<Specialization> Specializations { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Exam> Exams { get; set; }
+        public DbSet<Journal> Journals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,11 +39,16 @@ namespace University_DB.Data
                 .WithMany(s => s.Specializations)
                 .UsingEntity(j => j.ToTable("SpecailizationSubject"));
 
-                // Journal
-            modelBuilder.Entity<Journal>()
-                .HasOne(s => s.Student)
-                .WithOne(j => j.Journal)
+                // Student
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.Journal)
+                .WithOne(j => j.Student)
                 .HasForeignKey<Student>(s => s.JournalId);
+
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.Specialization)
+                .WithMany(sp => sp.Student)
+                .HasForeignKey(s => s.SpecializationlId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
