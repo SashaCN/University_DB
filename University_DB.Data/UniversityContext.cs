@@ -38,7 +38,7 @@ namespace University_DB.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //var connectingString = IConfigurationManager.AppSettings["ConnectionStriong"];
-            var serverVersion = new MySqlServerVersion(new Version(8, 0, 0));
+            var serverVersion = new MySqlServerVersion(new Version(5, 7, 39));
             optionsBuilder.UseMySql(serverVersion);
         }
     }
