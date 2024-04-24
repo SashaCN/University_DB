@@ -48,7 +48,7 @@ namespace University_DB.Data
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.Specialization)
                 .WithMany(sp => sp.Student)
-                .HasForeignKey(s => s.SpecializationlId);
+                .HasForeignKey(s => s.SpecializationlId); 
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
