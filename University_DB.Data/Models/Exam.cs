@@ -9,14 +9,18 @@ namespace University_DB.Data.Models
     public class Exam : Entity
     {
         public double Mark { get; set; }
+        public Guid Subject_id { get; set; }
+        public Guid Journal_id { get; set; }
         public Subject Subject { get; set; }
         public Journal Journal { get; set; }
 
-        public Exam(double mark, Subject subject, Journal journal)
+        public Exam() { }
+
+        public Exam(double mark, Guid subjectId, Guid journalId)
         {
             Mark = mark;
-            Subject = subject;
-            Journal = journal;
+            Subject_id = subjectId;
+            Journal_id = journalId;
         }
      
     }

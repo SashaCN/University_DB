@@ -48,14 +48,31 @@ namespace University_DB.Data
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.Specialization)
                 .WithMany(sp => sp.Student)
-                .HasForeignKey(s => s.SpecializationlId); 
+                .HasForeignKey(s => s.SpecializationlId);
+
+                // Teacher
+            modelBuilder.Entity<Teacher>()
+                .HasMany(t => t.Specializations)
+                .WithMany(sp => sp.Teachers)
+                .UsingEntity(j => j.ToTable("TeacherSpecialization"));
+
+                // Exam
+            modelBuilder.Entity<Exam>()
+                .HasOne(e => e.Subject)
+                .WithOne(s => s.Exam)
+                .HasForeignKey<Exam>(e => e.Subject_id);
+
+            modelBuilder.Entity<Exam>()
+                .HasOne(e => e.Journal)
+                .WithMany(j => j.Exams)
+                .HasForeignKey(e => e.Journal_id);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //var connectingString = IConfigurationManager.AppSettings["ConnectionStriong"];
-            var serverVersion = new MySqlServerVersion(new Version(5, 7, 39));
-            optionsBuilder.UseMySql(serverVersion);
+            //var connectingString = IConfigurationManager.AppSettings["ConnectionString"];
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 36));
+            optionsBuilder.UseMySql("server=127.0.0.1:3306;user=root;password=root;database=university", serverVersion);
         }
     }
 }

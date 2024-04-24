@@ -11,6 +11,9 @@ namespace University_DB.Data.Models
         public Student Student { get; set; }
         public List<Exam>? Exams { get; set; }
 
+        public Journal() { }
+
+
         public Journal(Student student)
         {
             Student = student;

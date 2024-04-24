@@ -9,6 +9,7 @@ namespace University_DB.Data.Models
     public class Subject : Entity
     {
         public string Name { get; set; }
+        public Exam Exam { get; set; }
         public List<Specialization>? Specializations { get; set; }
 
         public Subject(string name)
