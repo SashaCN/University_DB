@@ -19,60 +19,60 @@ namespace University_DB.Data
         public DbSet<Exam> Exams { get; set; }
         public DbSet<Journal> Journals { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
                 // Entity
             // Primary key 
-            modelBuilder.Entity<Entity>().HasKey(e => e.Id);
+            //modelBuilder.Entity<Entity>().HasKey(e => e.Id);
 
-            modelBuilder.Entity<Entity>()
-                .Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            //modelBuilder.Entity<Entity>()
+            //    .Property(e => e.CreatedAt)
+            //    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            modelBuilder.Entity<Entity>()
-                .Property(e => e.DeletedAt)
-                .HasDefaultValueSql("NULL");
+            //modelBuilder.Entity<Entity>()
+            //    .Property(e => e.DeletedAt)
+            //    .HasDefaultValueSql("NULL");
 
-                // Specailzation
-            modelBuilder.Entity<Specialization>()
-                .HasMany(sp => sp.Subjects)
-                .WithMany(s => s.Specializations)
-                .UsingEntity(j => j.ToTable("SpecailizationSubject"));
+            //    // Specailzation
+            //modelBuilder.Entity<Specialization>()
+            //    .HasMany(sp => sp.Subjects)
+            //    .WithMany(s => s.Specializations)
+            //    .UsingEntity(j => j.ToTable("SpecailizationSubject"));
 
-                // Student
-            modelBuilder.Entity<Student>()
-                .HasOne(s => s.Journal)
-                .WithOne(j => j.Student)
-                .HasForeignKey<Student>(s => s.JournalId);
+            //    // Student
+            //modelBuilder.Entity<Student>()
+            //    .HasOne(s => s.Journal)
+            //    .WithOne(j => j.Student)
+            //    .HasForeignKey<Student>(s => s.JournalId);
 
-            modelBuilder.Entity<Student>()
-                .HasOne(s => s.Specialization)
-                .WithMany(sp => sp.Student)
-                .HasForeignKey(s => s.SpecializationlId);
+            //modelBuilder.Entity<Student>()
+            //    .HasOne(s => s.Specialization)
+            //    .WithMany(sp => sp.Student)
+            //    .HasForeignKey(s => s.SpecializationlId);
 
-                // Teacher
-            modelBuilder.Entity<Teacher>()
-                .HasMany(t => t.Specializations)
-                .WithMany(sp => sp.Teachers)
-                .UsingEntity(j => j.ToTable("TeacherSpecialization"));
+            //    // Teacher
+            //modelBuilder.Entity<Teacher>()
+            //    .HasMany(t => t.Specializations)
+            //    .WithMany(sp => sp.Teachers)
+            //    .UsingEntity(j => j.ToTable("TeacherSpecialization"));
 
-                // Exam
-            modelBuilder.Entity<Exam>()
-                .HasOne(e => e.Subject)
-                .WithOne(s => s.Exam)
-                .HasForeignKey<Exam>(e => e.Subject_id);
+            // Exam
+            //modelBuilder.Entity<Exam>()
+            //    .HasOne(e => e.Subject)
+            //    .WithOne(s => s.Exam)
+            //    .HasForeignKey<Exam>(e => e.Subject_id);
 
-            modelBuilder.Entity<Exam>()
-                .HasOne(e => e.Journal)
-                .WithMany(j => j.Exams)
-                .HasForeignKey(e => e.Journal_id);
-        }
+            //modelBuilder.Entity<Exam>()
+            //    .HasOne(e => e.Journal)
+            //    .WithMany(j => j.Exams)
+            //    .HasForeignKey(e => e.Journal_id);
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //var connectingString = IConfigurationManager.AppSettings["ConnectionString"];
-            var serverVersion = new MySqlServerVersion(new Version(8, 0, 36));
-            optionsBuilder.UseMySql("server=127.0.0.1:3306;user=root;password=root;database=university", serverVersion);
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 3));
+            optionsBuilder.UseMySql("server=localhost;user=root;password=root;database=university", serverVersion);
         }
     }
 }
